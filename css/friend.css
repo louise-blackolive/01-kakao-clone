@@ -6,4 +6,9 @@
 
 .friend .friend_avatar {
   width: 50px;
+  border-radius: 35%;
+}
+
+.friend_avatar.g-avatar {
+  /*width: 70px;*/
 }
