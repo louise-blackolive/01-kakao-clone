@@ -1,5 +1,6 @@
 .header-wrapper {
   position: fixed;
+  z-index: 2;
   top: 0px;
   width: 100%;
   padding: 5px 0px;
@@ -26,30 +27,24 @@
 .chat__write-container {
   position: fixed;
   bottom: 0px;
-  margin: 0 auto;
   left: 0;
   right: 0;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  background-color: #fcfcfc;
+  align-items: center;
+  width: 100%;
+
+  margin: 0 auto;
   padding: 0px 20px;
-  /* box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
+  /*
+ box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
     0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
     */
 }
 
-.chat__write {
-  bottom: 0px;
-  width: 100%;
-  border-radius: 0;
-  padding: 10px 20px;
-  border: none;
-  font-size: 14px;
-}
-
 .chat__icon-left {
   position: absolute;
+  left: 10px;
 }
 
 .chat__icon-right {
@@ -57,8 +52,44 @@
   right: 10px;
 }
 
+@keyframes float {
+  0% {
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
+      0 8px 36px -18px rgba(0, 0, 0, 0.3),
+      0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+  }
+  50% {
+    box-shadow: 0 30px 60px -60px rgba(50, 50, 93, 0.25),
+      0 8px 36px -18px rgba(0, 0, 0, 0.3),
+      0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+  }
+  100% {
+    box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
+      0 8px 36px -18px rgba(0, 0, 0, 0.3),
+      0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+  }
+}
+
+.chat__write {
+  margin: 0 auto;
+  bottom: 0px;
+  width: 100%;
+  border-radius: 0;
+  padding: 20px 60px;
+  border: none;
+  font-size: 14px;
+  transition: width 0.5s ease-in-out, box-shadow 0.5s ease-in-out,
+    border-radius 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
 .chat__write:focus {
   outline: none;
+  width: 80%;
+  transform: translateY(-100px);
+  border-radius: 40px;
+  box-shadow: 0 30px 60px -12px rgba(50, 50, 93, 0.25),
+    0 8px 36px -18px rgba(0, 0, 0, 0.3), 0 -12px 36px -8px rgba(0, 0, 0, 0.025);
+  animation: float 3s linear infinite forwards;
 }
 
 .chat__icon {
@@ -118,10 +149,22 @@
   width: 80%;
 }
 
+@keyframes spin {
+  from {
+    transform: none;
+  }
+  to {
+    transform: rotateY(1turn);
+  }
+}
+
 .incoming-message img {
   width: 30px;
   border-radius: 15px;
   margin-right: 15px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 16px -8px,
+    rgba(0, 0, 0, 0.024) 0px -6px 16px -6px;
+  animation: spin 2s linear infinite;
 }
 
 .sent-message {
@@ -166,4 +209,34 @@
   border-bottom-right-radius: 0;
   background-image: linear-gradient(to right, #b5ac49, #3ca55c);
   color: white;
+}
+
+@keyframes incomingAnim {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  to {
+    opaticy: 1;
+    transform: none;
+  }
+}
+
+.incoming-message {
+  animation: incomingAnim 0.5s ease-out forwards;
+}
+
+@keyframes sentAnimation {
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  to {
+    opaticy: 1;
+    transform: none;
+  }
+}
+
+.sent-message {
+  animation: sentAnimation 0.5s ease-out forwards;
 }
